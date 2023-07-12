@@ -6,7 +6,7 @@ import * as FormData from 'form-data';
 export function activate(context: ExtensionContext) {
 	const commandId = "code-uploader-handler.upload";
 
-	const options = ['sprunge', 'iotek']
+	const options = ['sprunge', 'iotek', 'ix']
 
 	let disposable = commands.registerCommand(commandId, async () => {
 
@@ -33,6 +33,9 @@ export function activate(context: ExtensionContext) {
 					break;
 				case 'iotek':
 					url = await iotek(selected)
+					break;
+				case 'ix':
+					url = await ix(selected)
 					break;
 			}
 
@@ -88,9 +91,15 @@ async function sprunge(code: string) {
 async function iotek(code: string) {
 	const sourceUrl = 'https://p.iotek.org';
 
-	const { data: url } = await axios.put(sourceUrl, {
-		data: code
-	})
+	const { data: url } = await axios.post(sourceUrl, code)
+
+	return url
+}
+
+async function ix(code: string) {
+	const sourceUrl = 'https://p.iotek.org';
+
+	const { data: url } = await axios.post(sourceUrl, { f: 1, '1': code })
 
 	return url
 } 
