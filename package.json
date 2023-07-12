@@ -16,8 +16,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "code-uploader-handler.sprunge",
-        "title": "Upload to sprunge"
+        "command": "code-uploader-handler.upload",
+        "title": "Upload selected code"
       }
     ]
   },
